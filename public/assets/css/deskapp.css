@@ -1,0 +1,403 @@
+/* =====================================================================
+   TEMA DESKAPP untuk Laundry aja
+   Gaya (warna, sidebar gelap, header putih, card-box, widget) mengikuti
+   template DeskApp by Dropways (MIT License) — https://github.com/dropways/deskapp
+   Dibangun di atas Bootstrap 5, jadi semua view/modal/JS lama tetap jalan.
+   ===================================================================== */
+:root {
+    --da-primary: #1b00ff;
+    --da-primary-rgb: 27, 0, 255;
+    --da-primary-dark: #1400c4;
+    --da-primary-soft: #e8e6ff;
+    --da-sidebar: #142127;
+    --da-bg: #ecf0f4;
+    --da-text: #031e23;
+    --da-shadow: 0 0 28px rgba(0, 0, 0, .08);
+
+    --bs-primary: var(--da-primary);
+    --bs-primary-rgb: var(--da-primary-rgb);
+    --bs-link-color: var(--da-primary);
+    --bs-link-hover-color: var(--da-primary-dark);
+    --bs-body-font-family: 'Inter', sans-serif;
+    --bs-body-color: #031e23;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--da-bg);
+    color: var(--da-text);
+    min-height: 100vh;
+}
+
+/* ---------------- Header (putih, fixed, 70px) ---------------- */
+.da-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 70px;
+    width: calc(100% - 280px);
+    background: #fff;
+    z-index: 123;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, .1);
+    transition: all .3s ease-in-out;
+}
+.da-header .header-left { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+.da-header .menu-icon {
+    display: none; font-size: 28px; line-height: 1; cursor: pointer; color: #131e22;
+}
+.da-header .header-search { position: relative; max-width: 360px; width: 100%; }
+.da-header .header-search .search-icon {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    font-size: 16px; color: #777; pointer-events: none;
+}
+.da-header .header-search input {
+    width: 100%; height: 42px; border: 0; border-radius: 6px;
+    background: #ecf0f4; padding: 0 14px 0 40px; font-size: 14px; outline: none;
+}
+.da-header .header-search input:focus { box-shadow: 0 0 0 2px rgba(var(--da-primary-rgb), .25); }
+.da-header .header-right { display: flex; align-items: center; gap: 6px; }
+
+.user-notification .bell-btn {
+    position: relative; width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #131e22; font-size: 20px; background: transparent; border: 0;
+}
+.user-notification .bell-btn:hover { background: var(--da-primary); color: #fff; }
+.user-notification .notification-active {
+    position: absolute; top: 9px; right: 10px; width: 9px; height: 9px;
+    border-radius: 50%; background: #ff5b5b; border: 2px solid #fff;
+}
+.user-info-dropdown .dropdown-toggle {
+    display: flex; align-items: center; gap: 10px; padding: 4px 6px;
+    color: #131e22; text-decoration: none; background: transparent; border: 0;
+}
+.user-info-dropdown .dropdown-toggle::after { display: none; }
+.user-info-dropdown .user-icon {
+    width: 46px; height: 46px; border-radius: 50%; background: #ebeff3;
+    color: var(--da-primary); font-weight: 700; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .18);
+}
+.user-info-dropdown .user-name { font-weight: 500; line-height: 1.2; text-align: left; }
+.user-info-dropdown .user-name small { display: block; font-size: 11px; color: #6c757d; text-transform: capitalize; }
+.dropdown-menu { border: 0; box-shadow: 0 0 28px rgba(0, 0, 0, .12); border-radius: 8px; }
+.dropdown-item { font-size: 14px; padding: 9px 16px; }
+.dropdown-item:hover { background: var(--da-primary); color: #fff; }
+
+/* ---------------- Sidebar (gelap, 280px) ---------------- */
+.left-side-bar {
+    position: fixed; top: 0; left: 0; width: 280px; height: 100%;
+    background: var(--da-sidebar); z-index: 1000;
+    transition: all .3s ease-in-out; overflow-y: auto;
+}
+.left-side-bar .brand-logo {
+    height: 70px; padding: 0 20px; display: flex; align-items: center; gap: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+}
+.left-side-bar .brand-logo a {
+    display: flex; align-items: center; gap: 12px; color: #fff; text-decoration: none;
+    font-size: 21px; font-weight: 700; letter-spacing: -.01em;
+}
+.left-side-bar .brand-mark {
+    width: 38px; height: 38px; border-radius: 10px; background: var(--da-primary);
+    display: flex; align-items: center; justify-content: center; font-size: 19px;
+}
+.left-side-bar .close-sidebar { display: none; margin-left: auto; color: #fff; font-size: 22px; cursor: pointer; }
+.left-side-bar .menu-block { padding: 14px 10px; }
+.left-side-bar .menu-label {
+    color: rgba(255, 255, 255, .45); font-size: 11px; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase; padding: 14px 15px 6px;
+}
+.sidebar-menu ul { list-style: none; margin: 0; padding: 0; }
+.sidebar-menu li { margin-bottom: 4px; }
+.sidebar-menu a.menu-link {
+    display: block; position: relative; padding: 14px 15px 14px 67px;
+    font-size: 15px; font-weight: 500; color: #fff; text-decoration: none;
+    border-radius: 8px; transition: all .3s ease-in-out;
+}
+.sidebar-menu a.menu-link .micon {
+    position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+    width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
+    font-size: 22px; color: #fff; border-radius: 4px;
+}
+.sidebar-menu a.menu-link .mtext small { display: block; font-size: 11px; opacity: .6; font-weight: 400; margin-top: 1px; }
+.sidebar-menu a.menu-link:hover,
+.sidebar-menu a.menu-link.active { background: rgba(236, 240, 244, .19); color: #fff; }
+.sidebar-menu a.menu-link.active .micon { color: #fff; }
+.mobile-menu-overlay {
+    position: fixed; inset: 0; background: #121421; opacity: .6; z-index: 999; display: none;
+}
+
+/* ---------------- Konten utama ---------------- */
+.main-container { padding: 90px 20px 20px 300px; }
+.pd-ltr-20 { padding: 0; }
+
+.page-header {
+    background: #fff; border-radius: 10px; box-shadow: var(--da-shadow);
+    margin-bottom: 30px; padding: 20px;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px;
+}
+.page-header .title h4 { margin: 0; font-size: 20px; font-weight: 700; }
+.page-header .breadcrumb { margin: 4px 0 0; font-size: 13px; }
+.page-header .breadcrumb a { color: var(--da-primary); text-decoration: none; }
+
+/* Kartu = card-box DeskApp */
+.card, .card-soft {
+    background: #fff; border: 0 !important; border-radius: 10px;
+    box-shadow: var(--da-shadow);
+}
+.card-soft { border-left: 0 !important; }
+
+/* Kartu statistik = widget-style3 DeskApp: angka besar + ikon bulat berwarna */
+.card-stat { overflow: hidden; }
+.card-stat .fs-3.fw-bold,
+.card-stat .fs-5.fw-bold { font-size: 24px !important; font-weight: 700 !important; color: #031e23; }
+.card-stat .text-muted { font-size: 14px; font-weight: 500; color: #6c757d !important; }
+.card-stat .rounded-circle { width: 60px !important; height: 60px !important; }
+.card-stat .rounded-circle i { font-size: 26px !important; color: #fff !important; }
+.card-stat:has(.bg-primary-subtle) .rounded-circle { background: var(--da-primary) !important; }
+.card-stat:has(.bg-info-subtle)    .rounded-circle { background: #00eccf !important; }
+.card-stat:has(.bg-warning-subtle) .rounded-circle { background: #ff9b3d !important; }
+.card-stat:has(.bg-success-subtle) .rounded-circle { background: #09cc06 !important; }
+.card-stat:has(.bg-danger-subtle)  .rounded-circle { background: #ff5b5b !important; }
+
+/* Tombol */
+.btn { border-radius: 6px; font-weight: 500; }
+.btn-primary { --bs-btn-bg: var(--da-primary); --bs-btn-border-color: var(--da-primary); --bs-btn-hover-bg: var(--da-primary-dark); --bs-btn-hover-border-color: var(--da-primary-dark); --bs-btn-active-bg: var(--da-primary-dark); --bs-btn-active-border-color: var(--da-primary-dark); --bs-btn-disabled-bg: var(--da-primary); --bs-btn-disabled-border-color: var(--da-primary); }
+.btn-outline-primary { --bs-btn-color: var(--da-primary); --bs-btn-border-color: var(--da-primary); --bs-btn-hover-bg: var(--da-primary); --bs-btn-hover-border-color: var(--da-primary); --bs-btn-active-bg: var(--da-primary); --bs-btn-active-border-color: var(--da-primary); }
+.text-primary { color: var(--da-primary) !important; }
+.bg-primary { background-color: var(--da-primary) !important; }
+.form-control, .form-select { border-radius: 6px; border-color: #d9dee4; font-size: 14px; }
+.form-control:focus, .form-select:focus { border-color: var(--da-primary); box-shadow: 0 0 0 .2rem rgba(var(--da-primary-rgb), .12); }
+.form-check-input:checked { background-color: var(--da-primary); border-color: var(--da-primary); }
+.modal-content { border: 0; border-radius: 10px; box-shadow: 0 0 40px rgba(0, 0, 0, .18); }
+
+/* Tabel ala DeskApp */
+.table thead th { font-weight: 600; font-size: 15px; border-bottom: 0; padding: 1rem; white-space: nowrap; }
+.table thead.text-muted th, .table thead.small th { font-size: 13px; }
+.table td { font-size: 14px; font-weight: 500; padding: 1rem; vertical-align: middle; }
+.table-sm td, .table-sm th { padding: .6rem 1rem; }
+.table > :not(caption) > * > * { border-bottom-color: #eef1f4; }
+.table-hover tbody tr:hover { background: #f5f7fa; }
+
+/* Badge */
+.badge { font-weight: 600; border-radius: 6px; }
+.badge-role { background: var(--da-primary-soft); color: var(--da-primary); }
+.badge-status-diterima { background: #fff1de; color: #c76a00; }
+.badge-status-diproses { background: #e0e5ff; color: #1b00ff; }
+.badge-status-selesai  { background: #d9f7d8; color: #0a8c07; }
+.badge-status-diambil  { background: #e6e9ed; color: #444; }
+
+/* Item tugas di dashboard pegawai */
+.item-tugas { border-left: 3px solid var(--da-primary); padding-left: .75rem; }
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 1199px) {
+    .left-side-bar { width: 250px; left: -250px; }
+    .left-side-bar.show { left: 0; }
+    .left-side-bar .close-sidebar { display: block; }
+    .da-header { width: 100%; }
+    .da-header .menu-icon { display: block; }
+    .main-container { padding-left: 20px; }
+    .mobile-menu-overlay.show { display: block; }
+}
+@media (max-width: 575px) {
+    .da-header { padding: 0 10px; }
+    .da-header .header-search { display: none; }
+    .user-info-dropdown .user-name { display: none; }
+    .main-container { padding: 85px 10px 10px; }
+}
+
+/* =====================================================================
+   KOMPONEN DASHBOARD GAYA DESKAPP
+   ===================================================================== */
+/* utilitas kecil seperti di template */
+.pd-20 { padding: 20px; }
+.mb-20 { margin-bottom: 20px; }
+.mb-10 { margin-bottom: 10px; }
+.pb-10 { padding-bottom: 10px; }
+.pb-20 { padding-bottom: 20px; }
+.height-100-p { height: 100%; }
+.max-width-600 { max-width: 600px; }
+.font-12 { font-size: 12px; } .font-13 { font-size: 13px; } .font-14 { font-size: 14px; }
+.font-18 { font-size: 18px; } .font-20 { font-size: 20px; } .font-24 { font-size: 24px; } .font-30 { font-size: 30px; }
+.weight-500 { font-weight: 500; } .weight-600 { font-weight: 600; } .weight-700 { font-weight: 700; }
+.text-blue { color: var(--da-primary); }
+.text-diterima { color: #ff9b3d; } .text-diproses { color: #1b00ff; } .text-selesai { color: #09cc06; }
+
+.card-box { background: #fff; border-radius: 10px; box-shadow: var(--da-shadow); }
+.card-box .h5, .card-box h5 { font-weight: 600; color: #031e23; }
+.title h2.h4 { font-weight: 700; }
+
+/* widget-style3: angka besar di kiri, blok ikon berwarna penuh di kanan */
+.widget-style3 { padding: 0; overflow: hidden; }
+.widget-style3 .widget-data { flex: 1; padding: 22px 20px; min-width: 0; }
+.widget-style3 .widget-data .font-24 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.widget-style3 .widget-icon {
+    width: 70px; display: flex; align-items: center; justify-content: center;
+    font-size: 30px; line-height: 1; color: #fff; background: #334;
+}
+.widget-icon.c-blue   { background: var(--da-primary); }
+.widget-icon.c-teal   { background: #00c9b1; }
+.widget-icon.c-orange { background: #ff9b3d; }
+.widget-icon.c-green  { background: #09cc06; }
+.widget-icon.c-red    { background: #ff5b5b; }
+
+/* daftar tugas / item dengan avatar bulat */
+.task-item { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid #eef1f4; }
+.task-item:last-child { border-bottom: 0; padding-bottom: 0; }
+.task-avatar {
+    width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0; color: #fff; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+}
+.av-diterima { background: #ff9b3d; } .av-diproses { background: #1b00ff; } .av-selesai { background: #09cc06; }
+
+/* kartu gelap "Akses Cepat" (mirip kartu berwarna di DeskApp) */
+.quick-dark { background: #142127; }
+.quick-dark .btn-light { background: #fff; color: #142127; border: 0; font-weight: 500; }
+.quick-dark .btn-light:hover { background: #ecf0f4; }
+
+/* =====================================================================
+   POPUP / MODAL gaya DeskApp (header tegas, footer terpisah garis)
+   ===================================================================== */
+.modal-content { border: 0 !important; border-radius: 10px !important; box-shadow: 0 5px 40px rgba(0, 0, 0, .2); overflow: hidden; }
+.modal-header { padding: 18px 24px; border-bottom: 1px solid #eef1f4 !important; background: #fff; }
+.modal-header .modal-title { font-size: 18px; font-weight: 600; color: #031e23; }
+.modal-header .btn-close { opacity: .5; }
+.modal-header .btn-close:hover { opacity: 1; }
+.modal-body { padding: 24px; }
+.modal-body .form-label { font-size: 14px; font-weight: 500; color: #031e23; margin-bottom: 6px; }
+.modal-footer { padding: 16px 24px; border-top: 1px solid #eef1f4 !important; background: #fafbfc; }
+.modal-footer .btn-secondary { --bs-btn-bg: #6c757d; --bs-btn-border-color: #6c757d; }
+.modal-backdrop.show { opacity: .55; background: #121421; }
+
+/* SweetAlert2 ikut tema */
+.swal2-popup { border-radius: 10px !important; font-family: 'Inter', sans-serif !important; }
+.swal2-title { font-size: 22px !important; font-weight: 600 !important; color: #031e23 !important; }
+.swal2-styled.swal2-confirm:not([style*="rgb(221, 51, 51)"]) { background-color: var(--da-primary) !important; }
+.swal2-styled { border-radius: 6px !important; font-weight: 500 !important; }
+.swal2-styled:focus { box-shadow: 0 0 0 3px rgba(var(--da-primary-rgb), .25) !important; }
+
+/* =====================================================================
+   TABEL RESPONSIVE: di layar HP (<= 767px) tiap baris tabel jadi kartu
+   bertumpuk, jadi tidak perlu geser kiri-kanan.
+   Label kolom diisi otomatis oleh script di layout/main.php
+   (atribut data-label dari isi <thead>), jadi view lama tidak perlu diubah.
+   ===================================================================== */
+@media (max-width: 767px) {
+    .main-container .table-responsive { overflow-x: visible; }
+
+    .main-container table.table,
+    .main-container table.table > tbody,
+    .main-container table.table > tfoot,
+    .main-container table.table tr,
+    .main-container table.table td { display: block; width: 100%; box-sizing: border-box; }
+
+    .main-container table.table > thead { display: none; }
+
+    .main-container table.table > tbody > tr,
+    .main-container table.table > tfoot > tr {
+        background: #f8fafc;
+        border: 1px solid #e6eaef;
+        border-radius: 12px;
+        padding: 6px 14px;
+        margin-bottom: 12px;
+    }
+    .main-container .table-hover > tbody > tr:hover { background: #f8fafc; }
+
+    .main-container table.table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 9px 0;
+        border-bottom: 1px dashed #e3e8ee;
+        font-size: 13.5px;
+        text-align: right;
+    }
+    .main-container table.table tr > td:last-child { border-bottom: 0; }
+
+    .main-container table.table td[data-label]::before {
+        content: attr(data-label);
+        flex: 0 0 38%;
+        max-width: 38%;
+        text-align: left;
+        font-size: 12px;
+        font-weight: 600;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: .03em;
+        padding-top: 2px;
+    }
+    .main-container table.table td .cell-val {
+        flex: 1;
+        min-width: 0;
+        word-break: break-word;
+    }
+
+    /* kolom Aksi: tombol rata kanan, dipisah garis */
+    .main-container table.table td.td-aksi {
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        border-top: 1px solid #e3e8ee;
+        margin-top: 4px;
+        padding-top: 12px;
+    }
+    .main-container table.table td.td-aksi .cell-val { flex: 0 1 auto; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+
+    /* baris kosong ("Belum ada data") & sel colspan */
+    .main-container table.table td.td-full { display: block; text-align: center; }
+    .main-container table.table > tfoot td.td-full { text-align: left; font-weight: 700; }
+
+    /* header kartu (judul + tombol) boleh turun baris */
+    .main-container .card-soft > .d-flex:first-child { flex-wrap: wrap; gap: 8px; }
+}
+
+
+/* =====================================================================
+   WARNA PER ROLE  (font sama untuk semua role: Inter)
+   Pegawai = indigo (bawaan di :root), Pemilik = teal.
+   Mau ganti warna Pemilik? Cukup ubah 4 nilai di blok ini.
+   ===================================================================== */
+body.role-pemilik {
+    --da-primary: #0f9b8e;
+    --da-primary-rgb: 15, 155, 142;
+    --da-primary-dark: #0b7a70;
+    --da-primary-soft: #d7f5f1;
+    --bs-primary: #0f9b8e;
+    --bs-primary-rgb: 15, 155, 142;
+    --bs-link-color: #0f9b8e;
+    --bs-link-hover-color: #0b7a70;
+}
+
+/* Font sidebar disamakan untuk semua role (Pemilik & Pegawai) */
+.left-side-bar,
+.left-side-bar .brand-logo a,
+.left-side-bar .menu-label,
+.sidebar-menu a.menu-link {
+    font-family: 'Inter', sans-serif !important;
+}
+.sidebar-menu a.menu-link {
+    font-size: 15px !important;
+    font-weight: 500 !important;
+}
+.sidebar-menu a.menu-link .mtext small {
+    font-size: 11px !important;
+    font-weight: 400 !important;
+}
+
+/* Role User (pelanggan) = violet */
+body.role-user {
+    --da-primary: #7c3aed;
+    --da-primary-rgb: 124, 58, 237;
+    --da-primary-dark: #6428c9;
+    --da-primary-soft: #ede7fd;
+    --bs-primary: #7c3aed;
+    --bs-primary-rgb: 124, 58, 237;
+    --bs-link-color: #7c3aed;
+    --bs-link-hover-color: #6428c9;
+}

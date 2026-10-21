@@ -1,0 +1,140 @@
+:root {
+  --brand-tua: #5b4fdb;
+  --brand-muda: #7267e8;
+  --brand-bg: #f4f5fb;
+  --brand-text: #2d2a4a;
+
+  --stat-primary: #5b4fdb;
+  --stat-primary-2: #7267e8;
+  --stat-info: #4338ca;
+  --stat-info-2: #6d5ef0;
+  --stat-warning: #c68a1f;
+  --stat-warning-2: #d69e2e;
+  --stat-success: #1f7a4d;
+  --stat-success-2: #2f9e6e;
+}
+
+body {
+  background: var(--brand-bg);
+  color: var(--brand-text);
+  font-family: "Inter", sans-serif;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  background: linear-gradient(180deg, var(--brand-tua), var(--brand-muda));
+}
+.sidebar .brand {
+  font-weight: 700;
+  font-family: "Inter", sans-serif;
+}
+.sidebar a.active {
+  color: var(--brand-tua);
+}
+
+/* ---------- Topbar & role badge ---------- */
+.topbar {
+  box-shadow: 0 2px 10px rgba(91, 79, 219, 0.08);
+}
+.badge-role {
+  background: #ece9ff;
+  color: var(--brand-tua);
+}
+
+/* ---------- Bentuk badge: kotak membulat halus, huruf normal ---------- */
+.badge {
+  border-radius: 7px !important;
+  font-weight: 600;
+}
+
+/* ---------- Kartu konten — aksen di ATAS (garis tipis, formal) ---------- */
+.card-soft {
+  border: none;
+  border-top: 3px solid var(--brand-muda);
+  border-radius: 14px;
+  box-shadow: 0 2px 14px rgba(91, 79, 219, 0.08);
+}
+
+/* ---------- Tombol ---------- */
+.btn-primary {
+  background: var(--brand-tua);
+  border-color: var(--brand-tua);
+  border-radius: 8px;
+}
+.btn-primary:hover {
+  background: var(--brand-muda);
+  border-color: var(--brand-muda);
+}
+
+/* ---------- Kartu statistik ala Jobie: blok warna solid, ikon lingkaran ---------- */
+.card-stat {
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 10px 22px -10px rgba(91, 79, 219, 0.3);
+  background: #fff;
+  overflow: hidden;
+}
+.card-stat .rounded-circle {
+  border-radius: 50% !important;
+}
+
+.card-stat:has(.bg-primary-subtle) {
+  background: linear-gradient(
+    135deg,
+    var(--stat-primary),
+    var(--stat-primary-2)
+  );
+}
+.card-stat:has(.bg-info-subtle) {
+  background: linear-gradient(135deg, var(--stat-info), var(--stat-info-2));
+}
+.card-stat:has(.bg-warning-subtle) {
+  background: linear-gradient(
+    135deg,
+    var(--stat-warning),
+    var(--stat-warning-2)
+  );
+}
+.card-stat:has(.bg-success-subtle) {
+  background: linear-gradient(
+    135deg,
+    var(--stat-success),
+    var(--stat-success-2)
+  );
+}
+
+.card-stat:has(.bg-primary-subtle) .text-muted,
+.card-stat:has(.bg-info-subtle) .text-muted,
+.card-stat:has(.bg-warning-subtle) .text-muted,
+.card-stat:has(.bg-success-subtle) .text-muted {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.card-stat:has(.bg-primary-subtle) .fw-bold,
+.card-stat:has(.bg-info-subtle) .fw-bold,
+.card-stat:has(.bg-warning-subtle) .fw-bold,
+.card-stat:has(.bg-success-subtle) .fw-bold,
+.card-stat:has(.bg-primary-subtle) .angka-pendapatan,
+.card-stat:has(.bg-info-subtle) .angka-pendapatan,
+.card-stat:has(.bg-warning-subtle) .angka-pendapatan,
+.card-stat:has(.bg-success-subtle) .angka-pendapatan {
+  color: #fff !important;
+}
+
+.card-stat:has(.bg-primary-subtle) .rounded-circle,
+.card-stat:has(.bg-info-subtle) .rounded-circle,
+.card-stat:has(.bg-warning-subtle) .rounded-circle,
+.card-stat:has(.bg-success-subtle) .rounded-circle {
+  background: rgba(255, 255, 255, 0.22) !important;
+}
+.card-stat:has(.bg-primary-subtle) .rounded-circle i,
+.card-stat:has(.bg-info-subtle) .rounded-circle i,
+.card-stat:has(.bg-warning-subtle) .rounded-circle i,
+.card-stat:has(.bg-success-subtle) .rounded-circle i {
+  color: #fff !important;
+}
+
+/* highlight khusus angka pendapatan di dashboard pemilik (di luar kartu solid) */
+.angka-pendapatan {
+  color: var(--brand-tua);
+}
